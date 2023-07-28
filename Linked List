@@ -1,0 +1,146 @@
+# Creation of Linked list with following functions
+# print, get_length, insert_at_beginning, insert_at_end
+# insert_at, remove_at, insert_values
+# insert_after_value , remove_by_value
+
+class Node:
+    def __init__(self, data=None, ref=None):
+        self.data = data
+        self.ref = ref
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def print(self):
+        if self.head is None:
+            print("Linked List is empty")
+            return
+        itr = self.head
+        llstr = ""
+        while itr:
+            llstr = llstr + str(itr.data) + " --> "
+            itr = itr.ref
+        print(llstr)
+
+    def get_length(self):
+        count = 0
+        itr = self.head
+        while itr:
+            count += 1
+            itr = itr.ref
+        return count
+
+    def insert_at_beginning(self, data):
+        node = Node(data, self.head)
+        self.head = node
+
+    def insert_at_end(self, data):
+        if self.head is None:
+            self.head = Node(data, None)
+            return
+
+        itr = self.head
+        while itr.ref:
+            itr = itr.ref
+        itr.ref = Node(data, None)
+
+    def insert_at(self, index, data):
+        if index < 0 or index > self.get_length():
+            raise Exception("Invalid Index")
+        if index == 0:
+            self.insert_at_beginning(data)
+
+        itr = self.head
+        count = 0
+        while itr:
+            if count == index - 1:
+                node = Node(data, itr.ref)
+                itr.ref = node
+            itr = itr.ref
+            count += 1
+
+    def remove_at(self, index):
+        if index < 0 or index > self.get_length():
+            raise Exception("Invalid Index")
+        if index == 0:
+            self.head = self.head.ref
+        itr = self.head
+        count = 0
+        while itr:
+            if count == index - 1:
+                itr.ref = itr.ref.ref
+            count += 1
+            itr = itr.ref
+
+    def insert_values(self, datalist):
+        self.head = None
+        for data in datalist:
+            self.insert_at_end(data)
+
+    def insert_after_value(self, val, data):
+        if self.head is None:
+            return
+        if val == self.head.data:
+            self.head.ref = Node(data, self.head)
+            return
+        itr = self.head
+        while itr:
+            if val == itr.data:
+                itr.ref = Node(data, itr.ref)
+
+            itr = itr.ref
+
+    def remove_by_value(self, val):
+        if self.head is None:
+            return
+        if self.head.data == val:
+            self.head = self.head.ref
+            return
+        itr = self.head
+        while itr.ref:
+            if itr.ref.data == val:
+                itr.ref = itr.ref.ref
+                break
+            itr = itr.ref
+
+
+if __name__ == '__main__':
+    ll = LinkedList()
+    ll.insert_at_beginning(5)
+    ll.insert_at_beginning(7)
+    ll.insert_at_beginning(9)
+    ll.print()
+    print("Insert at beginning , length :", ll.get_length())
+    ll.insert_at_end(11)
+    ll.insert_at_end(13)
+    ll.insert_at_end(15)
+    ll.print()
+    print("Insert at end , length :", ll.get_length())
+    ll.insert_at(2, 6)
+    ll.print()
+    print("Insert with index , length :", ll.get_length())
+    ll.remove_at(0)
+    ll.print()
+    print("Remove with index '0' , length :", ll.get_length())
+    ll.remove_at(5)
+    ll.print()
+    print("Remove with index '5' , length :", ll.get_length())
+    ll.insert_values([45, 7, 12, 567, 99])
+    ll.print()
+    print("Insert list of values , length :", ll.get_length())
+    ll.insert_values(["banana", "mango", "grapes", "orange"])
+    ll.print()
+    ll.insert_after_value("mango", "apple")
+    ll.print()
+    ll.remove_by_value("orange")
+    ll.print()
+    ll.remove_by_value("banana")
+    ll.print()
+    ll.remove_by_value("mango")
+    ll.print()
+    ll.remove_by_value("apple")
+    ll.print()
+    ll.remove_by_value("grapes")
+    ll.print()
