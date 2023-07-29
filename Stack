@@ -1,0 +1,11 @@
+class Stack(list):
+    def push(self, data):
+        self.append(data)
+    
+        
+stack = Stack([1,2,3])
+print(stack)
+x.push(4)
+print(stack)
+x.pop()
+print("pop's last element :",x)
