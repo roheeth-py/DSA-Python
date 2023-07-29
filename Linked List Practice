@@ -1,0 +1,85 @@
+"""The LinkedList code from before is provided below.
+Add three functions to the LinkedList.
+"get_position" returns the element at a certain position.
+The "insert" function will add an element to a particular
+spot in the list.
+"delete" will delete the first element with that
+particular value.
+Then, use "Test Run" and "Submit" to run the test cases
+at the bottom.
+1) append 2) get position 3) insert 4) Delete"""
+
+class Node(object):
+    def __init__(self, data = None, next = None):
+        self.data = data
+        self.next = next
+class Linkedlist(object):
+    def __init__(self):
+        self.head = None
+    def print(self):
+        llstr = ""
+        itr  = self.head
+        while itr:
+            llstr = llstr + str(itr.data) + "-->"
+            itr = itr.next
+        print(llstr)
+    def append(self, data):
+        if self.head is None:
+            node = Node(data, self.head)
+            self.head = node
+        else:
+            itr = self.head
+            while itr.next:
+                itr = itr.next
+            itr.next = Node(data, None)
+    def get_len(self):
+        count = 0
+        itr = self.head
+        while itr:
+            count += 1
+            itr = itr.next
+        return count
+    def get_position(self, position):
+        count = 1
+        itr = self.head
+        while itr:
+            if position == count:
+                x = itr.data
+            count += 1
+            itr = itr.next
+        print(x)
+    def insert(self, index, data):
+        if index <= 0 or index > self.get_len():
+            raise Exception ("INVALID INDEX")
+        if index == 1:
+            node = Node(data, self.head)
+            self.head = node
+            return
+        itr = self.head
+        count = 2
+        while itr.next:
+            if count == index :
+                itr.next = Node(data, itr.next)
+            itr = itr.next
+            count = count + 1
+    def delete(self, val):
+        if self.head.data == val:
+            self.head = self.head.next
+            return
+        itr = self.head
+        while itr.next:
+            if itr.next.data == val:
+                itr.next = itr.next.next
+                break
+            itr = itr.next
+
+if __name__ == "__main__":
+    ll = Linkedlist()
+    ll.append(5)
+    ll.append(10)
+    ll.print()
+    ll.get_position(2)
+    ll.insert(2, 7)
+    ll.print()
+    ll.delete(10)
+    ll.print()
