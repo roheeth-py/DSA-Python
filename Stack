@@ -22,10 +22,14 @@ class Stack:
             print("Stack has elements")
         else:
             print("stack is empty")
+
     def clear(self):
-        while len(self.container) !=0:
+        while len(self.container) != 0:
             self.container.pop()
         return self.container
+
+    def show(self):
+        print(self.container)
 
 
 def reverse_string(data):
@@ -46,8 +50,10 @@ if __name__ == '__main__':
     stack.push(5)
     stack.push(1)
     stack.push(8)
+    stack.show()
     stack.is_Empty()
     stack.peek()
 
     stack.clear()
+    stack.show()
     stack.is_Empty()
