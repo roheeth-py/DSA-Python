@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class Queue:
     def __init__(self):
         self.container = deque()
@@ -14,7 +15,7 @@ class Queue:
         print(len(self.container))
 
     def peek(self):
-        if self.size(self.container) != 0:
+        if self.size() != 0:
             print(self.container[0])
         else:
             print("Queue Empty")
@@ -30,6 +31,7 @@ class Queue:
             else:
                 x = "False"
         print(x)
+
 
 if __name__ == "__main__":
     queue = Queue()
