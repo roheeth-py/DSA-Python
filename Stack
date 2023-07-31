@@ -1,11 +1,30 @@
-class Stack(list):
+from collections import deque
+
+
+class Stack:
+    def __init__(self):
+        self.container = deque()
+
     def push(self, data):
-        self.append(data)
-    
-        
-stack = Stack([1,2,3])
-print(stack)
-x.push(4)
-print(stack)
-x.pop()
-print("pop's last element :",x)
+        self.container.append(data)
+
+    def pop(self):
+        return self.container.pop()
+
+    def size(self):
+        return len(self.container)
+
+
+def reverse_string(data):
+    stack = Stack()
+    rstr = ""
+    for i in data:
+        stack.push(i)
+    while stack.size() != 0:
+        rstr = rstr + stack.pop()
+    return rstr
+
+
+if __name__ == '__main__':
+    print(reverse_string("We will conquere COVI-19"))
+    print(reverse_string("I am the king"))
