@@ -11,8 +11,21 @@ class Stack:
     def pop(self):
         return self.container.pop()
 
+    def peek(self):
+        print(self.container[-1])
+
     def size(self):
         return len(self.container)
+
+    def is_Empty(self):
+        if len(self.container) != 0:
+            print("Stack has elements")
+        else:
+            print("stack is empty")
+    def clear(self):
+        while len(self.container) !=0:
+            self.container.pop()
+        return self.container
 
 
 def reverse_string(data):
@@ -28,3 +41,13 @@ def reverse_string(data):
 if __name__ == '__main__':
     print(reverse_string("We will conquere COVI-19"))
     print(reverse_string("I am the king"))
+
+    stack = Stack()
+    stack.push(5)
+    stack.push(1)
+    stack.push(8)
+    stack.is_Empty()
+    stack.peek()
+
+    stack.clear()
+    stack.is_Empty()
