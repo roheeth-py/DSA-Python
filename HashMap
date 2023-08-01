@@ -1,0 +1,39 @@
+class HashMap:
+    def __init__(self):
+        self.MAX = 100
+        self.arr = [None for i in range(self.MAX)]
+
+    def get_hash(self, data):
+        h = 0
+        for i in data:
+            h += ord(i)
+        return h % self.MAX
+
+    def __setitem__(self, key, val):
+        h = self.get_hash(key)
+        self.arr[h] = val
+
+
+    def __getitem__(self, key):
+        h = self.get_hash(key)
+        print(self.arr[h])
+
+    def show(self):
+        for i in self.arr:
+            if i != None:
+                print(i)
+
+    def __delitem__(self, key):
+        h = self.get_hash(key)
+        self.arr[h] = None
+
+if __name__ == "__main__":
+    hashmap = HashMap()
+    hashmap["march 6"] = 130
+    hashmap["march 1"] = 20
+    hashmap["dec 17"] = 27
+    hashmap["dec 19"] = 31
+    hashmap.show()
+    print()
+    del hashmap["dec 19"]
+    hashmap.show()
