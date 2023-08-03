@@ -1,0 +1,102 @@
+'''(1) nyc_weather.csv contains new york city weather for first few days in the month of January. 
+       Write a program that can answer following,
+
+  (a) What was the average temperature in first week of Jan
+
+  (b) What was the maximum temperature in first 10 days of Jan'''
+
+
+name =  "C:\\Users\\xXx\\Downloads\\nyc_weather.csv"
+arr = []
+
+with open(name, "r") as f:
+    for line in f:
+        spl = line.split(",")
+        try:
+            temp = int(spl[1])
+            arr.append(temp)
+        except:
+            pass
+
+ave_of_1st = arr[0:7]
+n = sum(ave_of_1st)//len(ave_of_1st)
+print("average :",n)
+mx  = max(arr[0:10])
+print("max :",mx)
+
+'''(2) nyc_weather.csv contains new york city weather for first few days in the month of January.
+       Write a program that can answer following,
+
+  (a) What was the temperature on Jan 9?
+
+
+  (b) What was the temperature on Jan 4?
+
+
+Figure out data structure that is best for this problem'''
+
+name = "C:\\Users\\rohee\\Downloads\\nyc_weather.csv"
+dic = {}
+with open(name, "r") as f:
+    for line in f:
+        token = line.split(",")
+        try:
+            temp = int(token[1])
+            day = token[0]
+            dic[day] = temp
+        except:
+            pass
+print(dic)
+print("Jan 9 :", dic["Jan 9"])
+print("Jan 4 :", dic["Jan 4"])
+
+'''poem.txt Contains famous poem "Road not taken" by poet Robert Frost. 
+   You have to read this file in python and print every word and its count as show below.
+   Think about the best data structure that you can use to solve this problem and figure out why you selected that specific data structure.'''
+
+data = '''Two roads diverged in a yellow wood,
+And sorry I could not travel both
+And be one traveler, long I stood
+And looked down one as far as I could
+To where it bent in the undergrowth;
+
+Then took the other, as just as fair,
+And having perhaps the better claim,
+Because it was grassy and wanted wear;
+Though as for that the passing there
+Had worn them really about the same,
+
+And both that morning equally lay
+In leaves no step had trodden black.
+Oh, I kept the first for another day!
+Yet knowing how way leads on to way,
+I doubted if I should ever come back.
+
+I shall be telling this with a sigh
+Somewhere ages and ages hence:
+Two roads diverged in a wood, and I—
+I took the one less traveled by,
+And that has made all the difference.'''
+dic = dict()
+
+with open("C:\\Users\\xXx\\Downloads\\poem.txt", "r") as f:
+    for line in f:
+        sdata = line.split(" ")
+        for letter in sdata:
+            nletter = letter.strip()
+            rletter = nletter.replace("\n", "")
+
+            if rletter not in dic:
+                dic[rletter] = 1
+            else:
+                dic[rletter] += 1
+
+for i, v in dic.items():
+    print(i, ":", v)
+
+
+'''Implement hash table where collisions are handled using linear probing. 
+   We learnt about linear probing in the video tutorial. 
+   Take the hash table implementation that uses chaining and modify methods to use linear probing.
+   Keep MAX size of arr in hashtable as 10.'''
+
