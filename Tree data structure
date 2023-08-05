@@ -1,0 +1,57 @@
+# creation of Tree data structure
+
+class TreeNode:
+
+    def __init__(self, data):
+        self.data = data
+        self.parent = None
+        self.children = []
+
+    def get_level(self):
+        level = 0
+        p = self.parent
+        while p:
+            level += 1
+            p = p.parent
+        return level
+
+    def add_child(self, child):
+        child.parent = self
+        self.children.append(child)
+
+    def print_tree(self):
+        prefix = ("  ") * self.get_level()
+        first = prefix + "|__" if self.parent else ""
+        print(first + self.data)
+
+        if self.children:
+            for node in self.children:
+                node.print_tree()
+
+
+def build_product_tree():
+    root = TreeNode("Electronics")
+
+    laptop = TreeNode("Laptop")
+    laptop.add_child(TreeNode("Mac"))
+    laptop.add_child(TreeNode("Surface"))
+    laptop.add_child(TreeNode("Thinkpad"))
+
+    cellphone = TreeNode("Cell Phone")
+    cellphone.add_child(TreeNode("iPhone"))
+    cellphone.add_child(TreeNode("Google Pixel"))
+    cellphone.add_child(TreeNode("Vivo"))
+
+    tv = TreeNode("TV")
+    tv.add_child(TreeNode("Samsung"))
+    tv.add_child(TreeNode("LG"))
+
+    root.add_child(laptop)
+    root.add_child(cellphone)
+    root.add_child(tv)
+
+    return root
+
+if __name__ == "__main__":
+    tree = build_product_tree()
+    tree.print_tree()
