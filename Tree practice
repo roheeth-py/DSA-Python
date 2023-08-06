@@ -28,13 +28,20 @@ class TreeNode:
         child.parent = self
         self.children.append(child)
 
-    def print_tree(self):
+    def print_tree(self, req):
+        if req == "name":
+            value = self.name
+        elif req == "designation":
+            value = self.designation
+        elif req == "both":
+            value = self.name +" ("+ self.designation+")"
+
         space = " " * self.get_level()
         prefix = space + "|__" if self.parent else ""
-        print(prefix,self.name,"--",self.designation)
+        print(prefix, value)
         if self.children:
             for child in self.children:
-                child.print_tree()
+                child.print_tree(req)
 
 def build_management_tree():
     # CTO Hierarchy
@@ -61,4 +68,7 @@ def build_management_tree():
 
 if __name__ == '__main__':
     root_node = build_management_tree()
-    root_node.print_tree()
+
+    #root_node.print_tree("name")  # prints only name hierarchy
+    #root_node.print_tree("designation")  # prints only designation hierarchy
+    root_node.print_tree("both")  # prints both (name and designation) hierarchy
