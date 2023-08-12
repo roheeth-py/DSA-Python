@@ -34,7 +34,7 @@ class BinarySearchTree:
     def calculate_sum(self):
         left_sum = self.left.calculate_sum() if self.left else 0
         right_sum = self.right.calculate_sum() if self.right else 0
-        return left_sum+right_sum+self.data
+        return left_sum + right_sum + self.data
 
     def search(self, node):
         if node == self.data:
@@ -92,6 +92,7 @@ class BinarySearchTree:
             self.right = self.right.delete(r_min)
         return self
 
+
 def build_tree(elements):
     root = BinarySearchTree(elements[0])
     for i in range(1, len(elements)):
@@ -101,7 +102,7 @@ def build_tree(elements):
 
 if __name__ == "__main__":
     numbers_tree = build_tree([17, 4, 1, 20, 9, 23, 18, 34])
-    print("Inorder :",numbers_tree.inorder_traversal())
+    print("Inorder :", numbers_tree.inorder_traversal())
     numbers_tree.delete(20)
     print("After deleting 20 ", numbers_tree.inorder_traversal())  # this should print [1, 4, 9, 17, 18, 23, 34]
 
