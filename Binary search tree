@@ -1,11 +1,12 @@
 class BinarySearchTree:
+
     def __init__(self, data):
         self.data = data
-        self.right = None
         self.left = None
+        self.right = None
 
     def add_child(self, child):
-        if child == self.data:
+        if self.data == child:
             return
         if child < self.data:
             if self.left:
@@ -18,75 +19,96 @@ class BinarySearchTree:
             else:
                 self.right = BinarySearchTree(child)
 
-    def search(self, value):
-        if self.data == value:
-            return True
-        if value < self.data:
-            if self.left:
-                return self.left.search(value)
-        elif value > self.data:
-            if self.right:
-                return self.right.search(value)
-
-    # ([17, 4, 1, 20, 9, 23, 18, 34])
-    # [1, 4, 17]
-    # [17, 20, 23, 34]
-    def inorder_traversal(self):
-        elements = []
-
+    def find_min(self):
+        minimum = self.data
         if self.left:
-            elements += self.left.inorder_traversal()
-        elements.append(self.data)
+            return self.left.find_min()
+        return minimum
+
+    def find_max(self):
+        maximum = self.data
         if self.right:
-            elements += self.right.inorder_traversal()
-
-        return elements
-
-    def preorder_traversal(self):pass
-
-    def postorder_traversal(self):
-        elements = []
-
-        if self.left:
-            elements += self.left.postorder_traversal()
-
-        if self.right:
-            elements += self.right.postorder_traversal()
-        elements.append(self.data)
-
-        return elements
+            return self.right.find_max()
+        return maximum
 
     def calculate_sum(self):
         left_sum = self.left.calculate_sum() if self.left else 0
         right_sum = self.right.calculate_sum() if self.right else 0
-        return self.data + left_sum + right_sum
+        return left_sum+right_sum+self.data
 
-    def delete(self, data):
-        if self.data < data:
+    def search(self, node):
+        if node == self.data:
+            return True
+        elif node < self.data:
             if self.left:
-                self.left.delete(data)
-        elif self.data > data:
+                return self.left.search(node)
+        elif node > self.data:
             if self.right:
-                self.right.delete(data)
+                return self.right.search(node)
+
+    def inorder_traversal(self):
+        element = []
+        if self.left:
+            element += self.left.inorder_traversal()
+        element.append(self.data)
+        if self.right:
+            element += self.right.inorder_traversal()
+        return element
+
+    def preorder_traversal(self):
+        element = [self.data]
+        if self.left:
+            element += self.left.preorder_traversal()
+        if self.right:
+            element += self.right.preorder_traversal()
+        return element
+
+    def postorder_traversal(self):
+        element = []
+        if self.left:
+            element += self.left.postorder_traversal()
+        if self.right:
+            element += self.right.postorder_traversal()
+        element.append(self.data)
+        return element
+
+    def delete(self, value):
+        if value < self.data:
+            if self.left:
+                self.left = self.left.delete(value)
+        elif value > self.data:
+            if self.right:
+                self.right = self.right.delete(value)
         else:
             if self.left is None and self.right is None:
                 return None
             elif self.left is None:
                 return self.right
+            elif self.right is None:
+                return self.left
 
+            r_min = self.right.find_min()
+            self.data = r_min
+            self.right = self.right.delete(r_min)
+        return self
 
-
-
-def buildTree(element):
-
-    root = BinarySearchTree(element[0])
-    for i in range(1, len(element)):
-        root.add_child(element[i])
+def build_tree(elements):
+    root = BinarySearchTree(elements[0])
+    for i in range(1, len(elements)):
+        root.add_child(elements[i])
     return root
 
+
 if __name__ == "__main__":
-    tree = buildTree([15, 12, 7, 14, 27, 20, 23, 88])
-    print("Inorder Traversal :",tree.inorder_traversal())
-    print("Postorder Traversal :",tree.postorder_traversal())
-    print("search :",tree.search(7))
-    print("Total :",tree.calculate_sum())
+    numbers_tree = build_tree([17, 4, 1, 20, 9, 23, 18, 34])
+    print("Inorder :",numbers_tree.inorder_traversal())
+    numbers_tree.delete(20)
+    print("After deleting 20 ", numbers_tree.inorder_traversal())  # this should print [1, 4, 9, 17, 18, 23, 34]
+
+    numbers_tree = build_tree([17, 4, 1, 20, 9, 23, 18, 34])
+    numbers_tree.delete(9)
+    print("After deleting 9 ", numbers_tree.inorder_traversal())  # this should print [1, 4, 17, 18, 20, 23, 34]
+
+    numbers_tree = build_tree([17, 4, 1, 20, 9, 23, 18, 34])
+    numbers_tree.delete(17)
+    print("After deleting 17 ", numbers_tree.inorder_traversal())
