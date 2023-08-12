@@ -92,6 +92,11 @@ class BinarySearchTree:
             self.right = self.right.delete(r_min)
         return self
 
+# use max value from left subtree
+#_max_left = self.left.find_max()
+#_self.data = max_left
+#_self.left = self.left.delete(max_left)
+
 
 def build_tree(elements):
     root = BinarySearchTree(elements[0])
