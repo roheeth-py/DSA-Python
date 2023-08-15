@@ -1,0 +1,57 @@
+def linear_search(lst, target):
+    for index,element in enumerate(lst):
+        if element == target:
+            return "position : "+str(index)
+    return False
+
+def binary_search(lst, target):
+    left = 0
+    right = len(lst) - 1
+    mid = 0
+
+    while left <= right:
+
+        mid = (left + right)//2
+        mid_element = lst[mid]
+
+        if target == mid_element:
+            return "position : "+str(mid)
+
+        elif mid_element < target:
+            left = mid+1
+
+        else:
+            right = mid-1
+
+    return False
+
+def binary_recursion(list, target, left, right):
+
+    mid_index = (left + right) //2
+
+    if mid_index < len(list) and left < right:
+        mid_number = list[mid_index]
+
+        if mid_number == target:
+            return "position : " + str(mid_index)
+        elif mid_number < target:
+            left = mid_index + 1
+        else:
+            right = mid_index - 1
+
+        return binary_recursion(list, target, left, right)
+
+    else:
+        return False
+
+if __name__ == "__main__":
+    print()
+    numbers_list = [12, 15, 17, 19, 21, 24, 45, 67]
+    number_to_find = -1
+    print("Numbers :",numbers_list, "\nTarget :",number_to_find)
+    indexl = linear_search(numbers_list, number_to_find)
+    indexb = binary_search(numbers_list, number_to_find)
+    indexr = binary_recursion(numbers_list, number_to_find, 0, len(numbers_list))
+    print(f"number found at {indexl} using linear search")
+    print(f"number found at {indexb} using binary search")
+    print(f"number found at {indexr} using recursion in binary search")
